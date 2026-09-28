@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": "98aa7f2b1ff3d3d294",
+      "username": "lilly",
+      "email": "laibash3225@gmail.com",
+      "passwordHash": "$2a$10$BQFj6/yCshA7poXTurGD2OJsaC00krMtXEGS6qZ6ZRkseuE1lC2oO",
+      "bio": "",
+      "avatar": null,
+      "privacy": "public",
+      "createdAt": "2026-09-26T20:33:59.569Z"
+    },
+    {
+      "id": "361556a5d5b4ba790b",
+      "username": "Lilly",
+      "email": "laibashakoor3225@gmail.com",
+      "passwordHash": "$2a$10$YDkP2h3L8w2d.s4rFDpkmuObOGwvbjdokXK.desiSGT5cDMUFcn0O",
+      "bio": "",
+      "avatar": null,
+      "privacy": "public",
+      "createdAt": "2026-09-28T15:52:17.814Z"
+    }
+  ],
+  "posts": [
+    {
+      "id": "cf6d97b64ce848b0b8",
+      "userId": "361556a5d5b4ba790b",
+      "text": "The peace in the winds of madina,\r\nHeals even the wounds of heart.",
+      "image": "/uploads/2d0160a43c116cf647.jpg",
+      "privacy": "public",
+      "likes": [],
+      "comments": [],
+      "createdAt": "2026-09-28T15:55:26.302Z"
+    }
+  ],
+  "friendRequests": [],
+  "friendships": [],
+  "notifications": []
+}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vibely — a small social network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<button id="theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
+
+
+<!-- ===================== AUTH SCREEN ===================== -->
+<div id="auth-screen" class="auth-screen">
+  <div class="auth-card">
+    <h1 class="brand">Vibely</h1>
+    <p class="tagline">A small corner of the internet for your actual friends.</p>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">Log in</button>
+      <button class="auth-tab" data-tab="register">Create account</button>
+    </div>
+
+    <form id="login-form" class="auth-form">
+      <label>Email
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+      <label>Password
+        <input type="password" name="password" required autocomplete="current-password">
+      </label>
+      <p class="form-error" id="login-error"></p>
+      <button type="submit" class="btn btn-primary">Log in</button>
+    </form>
+
+    <form id="register-form" class="auth-form hidden">
+      <label>Username
+        <input type="text" name="username" required minlength="2">
+      </label>
+      <label>Email
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+      <label>Password
+        <input type="password" name="password" required minlength="6" autocomplete="new-password">
+      </label>
+      <p class="form-error" id="register-error"></p>
+      <button type="submit" class="btn btn-primary">Create account</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== MAIN APP ===================== -->
+<div id="app" class="app hidden">
+
+  <aside class="sidebar sidebar-left">
+    <h1 class="brand brand-small">Vibely</h1>
+
+    <div class="me-card">
+      <div class="avatar" id="me-avatar"></div>
+      <div>
+        <div class="me-name" id="me-username"></div>
+        <div class="me-sub" id="me-status">online</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-view="feed">Feed</button>
+      <button class="nav-item" data-view="friends">Friends</button>
+      <button class="nav-item" data-view="notifications">
+        Notifications <span class="badge hidden" id="notif-badge">0</span>
+      </button>
+      <button class="nav-item" data-view="profile">My profile</button>
+    </nav>
+
+    <button class="btn btn-ghost logout-btn" id="logout-btn">Log out</button>
+  </aside>
+
+  <main class="main">
+
+    <!-- FEED -->
+    <section class="view" id="view-feed">
+      <form id="post-form" class="composer">
+        <textarea name="text" placeholder="Share something with your friends…" rows="2"></textarea>
+        <div class="composer-row">
+          <label class="privacy-select">
+            <select name="privacy">
+              <option value="public">🌐 Public</option>
+              <option value="friends">👥 Friends only</option>
+            </select>
+          </label>
+          <label class="file-btn">
+            📷 <input type="file" name="image" accept="image/*">
+          </label>
+          <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+        <div class="image-preview hidden" id="composer-preview"></div>
+      </form>
+
+      <div id="feed-list" class="feed-list"></div>
+      <p class="empty-state hidden" id="feed-empty">Your feed is quiet. Add some friends or write the first post.</p>
+    </section>
+
+    <!-- FRIENDS -->
+    <section class="view hidden" id="view-friends">
+      <div class="panel">
+        <h2>Find people</h2>
+        <input type="search" id="user-search" placeholder="Search by username…">
+        <div id="search-results" class="user-list"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Requests <span class="badge hidden" id="requests-badge">0</span></h2>
+        <div id="requests-list" class="user-list"></div>
+        <p class="empty-state hidden" id="requests-empty">No pending requests.</p>
+      </div>
+
+      <div class="panel">
+        <h2>Your friends</h2>
+        <div id="friends-list" class="user-list"></div>
+        <p class="empty-state hidden" id="friends-empty">No friends yet — search above to send a request.</p>
+      </div>
+    </section>
+
+    <!-- NOTIFICATIONS -->
+    <section class="view hidden" id="view-notifications">
+      <div class="view-header">
+        <h2>Notifications</h2>
+        <button class="btn btn-ghost" id="mark-all-read">Mark all read</button>
+      </div>
+      <div id="notifications-list" class="notif-list"></div>
+      <p class="empty-state hidden" id="notif-empty">Nothing yet. Likes, comments, and requests will show up here in real time.</p>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="view hidden" id="view-profile">
+      <div class="panel profile-panel">
+        <h2>My profile</h2>
+        <form id="profile-form">
+          <label class="avatar-upload">
+            <div class="avatar avatar-lg" id="profile-avatar-preview"></div>
+            <input type="file" name="avatar" accept="image/*">
+            <span>Change photo</span>
+          </label>
+          <label>Bio
+            <textarea name="bio" rows="3" placeholder="Tell people a little about you…"></textarea>
+          </label>
+          <label>Default post privacy
+            <select name="privacy">
+              <option value="public">🌐 Public — anyone can see new posts</option>
+              <option value="friends">👥 Friends only — only friends can see new posts</option>
+            </select>
+          </label>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+          <span class="save-confirm hidden" id="profile-saved">Saved ✓</span>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>My posts</h2>
+        <div id="profile-posts" class="feed-list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <aside class="sidebar sidebar-right">
+    <div class="panel">
+      <h2>Friend requests</h2>
+      <div id="side-requests" class="user-list"></div>
+      <p class="empty-state hidden" id="side-requests-empty">Nothing pending.</p>
+    </div>
+    <div class="panel">
+      <h2>People you may know</h2>
+      <div id="side-suggestions" class="user-list"></div>
+    </div>
+  </aside>
+
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
